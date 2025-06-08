@@ -6,17 +6,26 @@ import javax.swing.JFrame;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import app.database.connection.DBConnection;
+
 import javax.swing.JSpinner;
 
 public class Application {
 
 	private JFrame frame;
 	private JTextField textField;
+	private static DBConnection connection;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		final String URL = "jdbc:mysql://127.0.0.1:3306/db";
+		final String DRIVER = "com.mysql.cj.jdbc.Driver";
+		final String USER = "";
+		final String PASSWORD = "";
+		Application.connection = new DBConnection(URL, DRIVER, USER, PASSWORD);
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
