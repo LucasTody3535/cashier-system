@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/27.0.9 Chrome/134.0.6998.205 Electron/35.4.0 Safari/537.36" version="27.0.9">
   <diagram name="Página-1" id="_tbapLBVJwEWvmGX1Hm0">
-    <mxGraphModel dx="2478" dy="2201" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2542" dy="2231" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -627,7 +627,7 @@
         <mxCell id="vrf5h22aDjIPJycOnb_o-8" value="+ &lt;span&gt;search(): void&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=0" vertex="1" parent="vrf5h22aDjIPJycOnb_o-2">
           <mxGeometry y="139" width="200" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="vrf5h22aDjIPJycOnb_o-9" value="+ &lt;span&gt;add(Invoicepayment): void&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=0" vertex="1" parent="vrf5h22aDjIPJycOnb_o-2">
+        <mxCell id="vrf5h22aDjIPJycOnb_o-9" value="+ &lt;span&gt;add(Invoice invoice): void&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=0" vertex="1" parent="vrf5h22aDjIPJycOnb_o-2">
           <mxGeometry y="165" width="200" height="26" as="geometry" />
         </mxCell>
         <mxCell id="vrf5h22aDjIPJycOnb_o-10" value="" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;curved=0;" edge="1" parent="1" source="vrf5h22aDjIPJycOnb_o-5" target="p8VfrFq_-y80NSTIGGSe-16">
