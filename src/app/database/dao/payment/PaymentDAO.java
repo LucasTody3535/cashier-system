@@ -41,6 +41,23 @@ public class PaymentDAO extends BaseDAO {
 
 	@Override
 	public boolean update() {
+		String sql = "UPDATE Payments SET date = ? WHERE id = ?;";
+		DBConnection conn = this.getConnection();
+		PreparedStatement stmt = conn.genPreparedStatement(sql);
+		try {
+			for(Payment payment : this.payments) {
+				if(payment.getId() > 0) {
+					stmt.setLong(1, payment.getDate().getTimeInMillis());
+					stmt.setLong(2, payment.getId());
+					stmt.execute();
+					payment.setId(-1);
+				}
+			}
+			this.payments.removeIf(payment -> payment.getId() == -1);
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
 
