@@ -57,7 +57,28 @@ public class InvoiceDAO extends BaseDAO {
 
 	@Override
 	public boolean update() {
-		return false;
+		DBConnection conn = this.getConnection();
+		String sql = "UPDATE Invoices "
+			+ "SET total = ?, doc = ?, pdv = ?, "
+			+ "supermarket = ?, payment_type = ? "
+			+ "WHERE id = ?;";
+		PreparedStatement invoiceTableStmt = conn.genPreparedStatement(sql);
+		try {
+			for(Invoice invoice : this.invoices) {
+				invoiceTableStmt.setFloat(1, invoice.getTotal());
+				invoiceTableStmt.setString(2, invoice.getDoc());
+				invoiceTableStmt.setString(3, invoice.getPdv());
+				invoiceTableStmt.setString(4, invoice.getSupermarket());
+				invoiceTableStmt.setString(5, invoice.getPaymentType().name());
+				invoiceTableStmt.setLong(1, invoice.getId());
+				invoiceTableStmt.execute();
+			}
+			invoiceTableStmt.close();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
