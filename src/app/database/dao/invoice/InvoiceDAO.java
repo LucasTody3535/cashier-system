@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import app.database.connection.DBConnection;
 import app.database.dao.base.BaseDAO;
+import app.enums.payment_type.PaymentType;
 import app.models.invoice.Invoice;
 import app.models.product.Product;
 
@@ -103,7 +104,31 @@ public class InvoiceDAO extends BaseDAO {
 	}
 
 	@Override
-	public void search() {}
+	public void search() {
+		String sql = "select * from invoices;";
+		DBConnection conn = this.getConnection();
+		PreparedStatement stmt = conn.genPreparedStatement(sql);
+		Invoice invoice;
+		this.invoices.clear();
+		try {
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next()) {
+				invoice = new Invoice(
+					rs.getLong("id"),
+					null,
+					rs.getFloat("total"),
+					rs.getString("doc"),
+					rs.getString("pdv"),
+					rs.getString("supermarket"),
+					PaymentType.valueOf(PaymentType.class, rs.getString("pdv"))
+				);
+				this.invoices.add(invoice);
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	protected void createTable() {
