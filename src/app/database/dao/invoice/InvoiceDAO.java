@@ -62,6 +62,22 @@ public class InvoiceDAO extends BaseDAO {
 
 	@Override
 	public boolean delete(long[] ids) {
+		String sql = "DELETE FROM Invoices WHERE id = ?;";
+		DBConnection conn = this.getConnection();
+		PreparedStatement stmt = conn.genPreparedStatement(sql);
+		try {
+			for(long id : ids) {
+				if(id > 0) {
+					stmt.setLong(1, id);
+					stmt.execute();
+					this.invoices.removeIf(invoice -> id == invoice.getId());
+				}
+			}
+			stmt.close();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
 
