@@ -18,6 +18,24 @@ public class PaymentDAO extends BaseDAO {
 
 	@Override
 	public boolean save() {
+		String sql = "INSERT INTO Payments VALUES(?, ?, ?);";
+		DBConnection conn = this.getConnection();
+		PreparedStatement stmt = conn.genPreparedStatement(sql);
+		try {
+			for(Payment payment : this.payments) {
+				if(payment.getId() == 0) {
+					stmt.setLong(1, payment.getId());
+					stmt.setLong(2, payment.getDate().getTimeInMillis());
+					stmt.setFloat(3, payment.getInvoice().getId());
+					stmt.execute();
+					payment.setId(-1);
+				}
+			}
+			this.payments.removeIf(payment -> payment.getId() == -1);
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
 
