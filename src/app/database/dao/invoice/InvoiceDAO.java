@@ -1,12 +1,14 @@
 package app.database.dao.invoice;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import app.database.connection.DBConnection;
 import app.database.dao.base.BaseDAO;
 import app.models.invoice.Invoice;
+import app.models.product.Product;
 
 public class InvoiceDAO extends BaseDAO {
 	private ArrayList<Invoice> invoices = new ArrayList<Invoice>();
@@ -18,7 +20,39 @@ public class InvoiceDAO extends BaseDAO {
 
 	@Override
 	public boolean save() {
-		return false;
+		DBConnection conn = this.getConnection();
+		PreparedStatement highestId = conn.genPreparedStatement("SELECT MAX(id) as id FROM Invoices;");
+		PreparedStatement invoiceTableStmt = conn.genPreparedStatement("INSERT INTO Invoices VALUES(?, ?, ?, ?, ?, ?);");
+		PreparedStatement invoiceRelationTableStmt = conn.genPreparedStatement("INSERT INTO ProductsIntoInvoice VALUES(?, ?, ?);");
+		ResultSet result;
+		long generatedId;
+		try {
+			for(Invoice invoice : this.invoices) {
+				invoiceTableStmt.setLong(1, invoice.getId());
+				invoiceTableStmt.setFloat(2, invoice.getTotal());
+				invoiceTableStmt.setString(3, invoice.getDoc());
+				invoiceTableStmt.setString(4, invoice.getPdv());
+				invoiceTableStmt.setString(5, invoice.getSupermarket());
+				invoiceTableStmt.setString(6, invoice.getPaymentType().name());
+				invoiceTableStmt.execute();
+				result = highestId.executeQuery();
+				result.next();
+				generatedId = result.getLong("id");
+				for(Product product: invoice.getProducts()) {
+					invoiceRelationTableStmt.setLong(1, 0);
+					invoiceRelationTableStmt.setLong(2, generatedId);
+					invoiceRelationTableStmt.setLong(3, product.getId());
+					invoiceRelationTableStmt.execute();
+				}
+			}
+			highestId.close();
+			invoiceTableStmt.close();
+			invoiceRelationTableStmt.close();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
