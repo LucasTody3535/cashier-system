@@ -1,5 +1,7 @@
 package app.database.dao.payment;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import app.database.connection.DBConnection;
@@ -11,6 +13,7 @@ public class PaymentDAO extends BaseDAO {
 
 	public PaymentDAO(DBConnection connection) {
 		super(connection);
+		this.createTable();
 	}
 
 	@Override
@@ -35,7 +38,19 @@ public class PaymentDAO extends BaseDAO {
 
 	@Override
 	protected void createTable() {
-		
+		String sql = "CREATE TABLE IF NOT EXISTS Payments("
+				+ "id INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,"
+				+ "date BIGINT NOT NULL,"
+				+ "invoice_id INTEGER NOT NULL UNIQUE,"
+				+ "FOREIGN KEY (invoice_id) REFERENCES Invoices(id));";
+		DBConnection conn = this.getConnection();
+		PreparedStatement stmt = conn.genPreparedStatement(sql);
+		try {
+			stmt.execute();
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void add(Payment payment) {
