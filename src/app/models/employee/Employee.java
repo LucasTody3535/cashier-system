@@ -5,6 +5,12 @@ public class Employee {
 	private String name;
 	private String idCard;
 
+	public Employee(long id, String name, String idCard) {
+		this.setId(id);
+		this.setName(name);
+		this.setIdCard(idCard);
+	}
+
 	public long getId() {
 		return this.id;
 	}

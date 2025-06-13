@@ -8,6 +8,13 @@ public class CashDraw {
 	private float value;
 	private Calendar date;
 
+	public CashDraw(long id, String pdv, float value, Calendar date) {
+		this.setId(id);
+		this.setCashierPdv(pdv);
+		this.setValue(value);
+		this.setDate(date);
+	}
+
 	public long getId() {
 		return this.id;
 	}

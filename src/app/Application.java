@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import app.database.connection.DBConnection;
+import app.ui.screens.login.LoginScreen;
 
 import javax.swing.JSpinner;
 
@@ -29,8 +30,8 @@ public class Application {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Application window = new Application();
-					window.frame.setVisible(true);
+					LoginScreen loginScreen = new LoginScreen(null);
+					loginScreen.getFrame().setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
